@@ -90,61 +90,79 @@ function sortTasks() {
   displayTasks(); // Tampilkan tugas yang sudah diurutkan
 }
 
+// Fungsi untuk memeriksa dan memberi peringatan tanggal jatuh tempo
+function checkDueDates() {
+    const today = new Date().toISOString().split('T')[0]; // Mendapatkan tanggal hari ini dalam format 'YYYY-MM-DD'
+    tasks.forEach((task, index) => {
+      if (task.dueDate && task.dueDate < today && !task.completed) {
+        alert(`Tugas "${task.title}" telah melewati tanggal jatuh tempo!`);
+      } else if (task.dueDate === today && !task.completed) {
+        alert(`Tugas "${task.title}" jatuh tempo hari ini!`);
+      }
+    });
+}  
+
 // Fungsi untuk menampilkan tugas sesuai filter dan pengurutan
 function displayTasks() {
-  const taskList = document.getElementById('taskList');
-  taskList.innerHTML = ''; // Bersihkan daftar tugas yang ada
-
-  // Filter tugas berdasarkan filterStatus
-  const filteredTasks = tasks.filter(task => {
-    if (filterStatus === 'active') return !task.completed; // Hanya tampilkan tugas yang belum selesai
-    if (filterStatus === 'completed') return task.completed; // Hanya tampilkan tugas yang selesai
-    return true; // Tampilkan semua tugas jika filter 'all'
-  });
-
-  // Urutkan tugas berdasarkan sortMethod
-  filteredTasks.sort((a, b) => {
-    if (sortMethod === 'priority') { // Urutkan berdasarkan prioritas
-      const priorities = { high: 1, medium: 2, low: 3 };
-      return priorities[a.priority] - priorities[b.priority];
-    } else if (sortMethod === 'dueDate') { // Urutkan berdasarkan tanggal jatuh tempo
-      return new Date(a.dueDate) - new Date(b.dueDate);
-    }
-    return 0; // Jika tidak ada pengurutan, kembalikan urutan asli
-  });
-
-  filteredTasks.forEach((task, index) => {
-    const taskItem = document.createElement('li');
-    taskItem.className = 'task-item';
-
-    const taskText = `<span class="${task.completed ? 'completed-text' : ''}">
-      ${task.title} - ${task.dueDate || 'Tidak ada tanggal'} (${task.priority})
-    </span>`;
-
-    // Tambahkan tombol Edit jika filterStatus adalah 'all' dan tidak ada pengurutan
-    const editButton = (filterStatus === 'all' && sortMethod === 'none')
-      ? `<button class="btn-edit" onclick="editTask(${index})">Edit</button>`
-      : '';
-
-    // Sembunyikan tombol "Selesai" saat difilter berdasarkan 'aktif' atau 'selesai'
-    const completeButton = (filterStatus === 'all' && sortMethod === 'none')  
-      ? `<button class="btn-complete" onclick="toggleTask(${index})">${task.completed ? 'Batal' : 'Selesai'}</button>`
-      : '';
-
-    taskItem.innerHTML = `
-      ${taskText}
-      <div class="task-actions">
-        ${completeButton}
-        ${editButton}
-        <button class="btn-delete" onclick="deleteTask(${index})">Hapus</button>
-      </div>
-    `;
-    taskList.appendChild(taskItem); // Tambahkan tugas ke tampilan
-  });
-
-  updateStats(); // Perbarui statistik tugas
+    const taskList = document.getElementById('taskList');
+    taskList.innerHTML = '';
+  
+    const today = new Date().toISOString().split('T')[0]; // Mendapatkan tanggal hari ini
+  
+    // Filter dan urutkan tugas seperti sebelumnya
+    const filteredTasks = tasks.filter(task => {
+      if (filterStatus === 'active') return !task.completed;
+      if (filterStatus === 'completed') return task.completed;
+      return true;
+    });
+  
+    filteredTasks.sort((a, b) => {
+      if (sortMethod === 'priority') {
+        const priorities = { high: 1, medium: 2, low: 3 };
+        return priorities[a.priority] - priorities[b.priority];
+      } else if (sortMethod === 'dueDate') {
+        return new Date(a.dueDate) - new Date(b.dueDate);
+      }
+      return 0;
+    });
+  
+    filteredTasks.forEach((task, index) => {
+      const taskItem = document.createElement('li');
+      taskItem.className = 'task-item';
+  
+      // Tambahkan kelas warna jika tugas jatuh tempo hari ini atau telah lewat
+      if (task.dueDate && task.dueDate < today && !task.completed) {
+        taskItem.style.backgroundColor = '#ffcccc'; // Warna merah untuk tugas yang telah lewat
+      } else if (task.dueDate === today && !task.completed) {
+        taskItem.style.backgroundColor = '#fff3cd'; // Warna kuning untuk tugas jatuh tempo hari ini
+      }
+  
+      const taskText = `<span class="${task.completed ? 'completed-text' : ''}">
+        ${task.title} - ${task.dueDate || 'Tidak ada tanggal'} (${task.priority})
+      </span>`;
+  
+      const editButton = (filterStatus === 'all' && sortMethod === 'none')
+        ? `<button class="btn-edit" onclick="editTask(${index})">Edit</button>`
+        : '';
+  
+      const completeButton = (filterStatus === 'all' && sortMethod === 'none')  
+        ? `<button class="btn-complete" onclick="toggleTask(${index})">${task.completed ? 'Batal' : 'Selesai'}</button>`
+        : '';
+  
+      taskItem.innerHTML = `
+        ${taskText}
+        <div class="task-actions">
+          ${completeButton}
+          ${editButton}
+          <button class="btn-delete" onclick="deleteTask(${index})">Hapus</button>
+        </div>
+      `;
+      taskList.appendChild(taskItem);
+    });
+  
+    updateStats();
 }
-
+  
 // Fungsi untuk menyimpan daftar tugas ke localStorage
 function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -157,4 +175,7 @@ function updateStats() {
 }
 
 // Tampilkan tugas saat halaman selesai dimuat
-document.addEventListener('DOMContentLoaded', displayTasks);
+document.addEventListener('DOMContentLoaded', () => {
+    displayTasks();
+    checkDueDates(); // Periksa tanggal jatuh tempo saat halaman dimuat
+});
