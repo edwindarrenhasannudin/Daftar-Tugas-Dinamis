@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Meta charset dan pengaturan viewport untuk pengkodean karakter yang benar dan responsivitas -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Judul halaman web -->
+  <title>Manajemen Daftar Tugas</title>
+  
+  <!-- Tautan ke file CSS eksternal untuk penataan -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Kontainer utama untuk membungkus semua konten -->
+  <div class="container">
+    
+    <!-- Bagian header dengan judul halaman -->
+    <header>
+      <h2>📅 Manajemen Daftar Tugas ✏️</h2>
+    </header>
+    
+    <!-- Bagian formulir tugas tempat pengguna dapat menambahkan tugas baru -->
+    <section id="taskSection">
+        <form id="taskForm" class="task-form">
+            <!-- Input untuk judul tugas (field wajib) -->
+            <input type="text" id="taskTitle" placeholder="Judul Tugas" required>
+            
+            <!-- Input untuk tanggal jatuh tempo tugas -->
+            <input type="date" id="taskDueDate" placeholder="Tanggal Jatuh Tempo">
+            
+            <!-- Dropdown untuk memilih prioritas tugas -->
+            <select id="taskPriority">
+              <option value="high">Prioritas Tinggi</option>
+              <option value="medium">Prioritas Sedang</option>
+              <option value="low">Prioritas Rendah</option>
+            </select>
+            
+            <!-- Kontainer tombol untuk aksi form -->
+            <div class="button-container">
+              <!-- Tombol untuk membuang perubahan (tersembunyi secara default, muncul saat mengedit) -->
+              <button type="button" id="discardButton" onclick="discardChanges()">Buang Perubahan</button>
+              
+              <!-- Tombol untuk mengirimkan tugas baru -->
+              <button type="submit" id="submitButton">Tambah Tugas</button>
+            </div>
+        </form>
+    </section>
+    
+    <!-- Bagian filter dan urutkan untuk mengelola tugas yang ditampilkan -->
+    <section class="filter-section">
+      <div class="filter-buttons">
+        <!-- Tombol filter untuk menampilkan semua, aktif, atau tugas selesai -->
+        <button onclick="filterTasks('all')" class="filter-btn">Semua</button>
+        <button onclick="filterTasks('active')" class="filter-btn">Aktif</button>
+        <button onclick="filterTasks('completed')" class="filter-btn">Selesai</button>
+      </div>
+      
+      <!-- Dropdown untuk memilih opsi pengurutan (misalnya, berdasarkan prioritas atau tanggal jatuh tempo) -->
+      <select id="sortTasks">
+        <option value="none">Urutkan Berdasarkan</option>
+        <option value="priority">Prioritas</option>
+        <option value="dueDate">Tanggal Jatuh Tempo</option>
+      </select>
+    </section>
+    
+    <!-- Bagian untuk menampilkan daftar tugas -->
+    <section>
+      <ul id="taskList" class="task-list"></ul> <!-- Kontainer daftar tugas -->
+    </section>
+    
+    <!-- Bagian footer dengan statistik tugas (tugas selesai/tugas total) -->
+    <footer>
+      <p id="taskStats">Tugas Selesai: 0 / Total Tugas: 0</p>
+    </footer>
+    
+  </div>
+
+  <!-- Tautan ke file JavaScript eksternal untuk menangani fungsionalitas -->
+  <script src="script.js"></script>
+</body>
+</html>

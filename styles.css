@@ -1,0 +1,272 @@
+/* Reset CSS */
+* {
+    box-sizing: border-box; /* Memastikan padding dan border termasuk dalam lebar dan tinggi total elemen */
+    margin: 0; /* Menghilangkan margin default */
+    padding: 0; /* Menghilangkan padding default */
+}
+
+/* Pengaturan umum untuk body */
+body {
+  font-family: Arial, sans-serif; /* Mengatur font yang bersih dan mudah dibaca */
+  background: linear-gradient(to right, #4facfe, #00f2fe); /* Latar belakang gradien */
+  display: flex; /* Memusatkan konten */
+  justify-content: center; /* Memusatkan item secara horizontal */
+  align-items: center; /* Memusatkan item secara vertikal */
+  min-height: 100vh; /* Memastikan tinggi sesuai dengan viewport */
+  padding: 20px; /* Memberi padding untuk mencegah konten terlalu dekat dengan tepi */
+}
+
+/* Pengaturan utama container */
+.container {
+  background-color: #ffffff; /* Latar belakang putih untuk container */
+  border-radius: 12px; /* Sudut membulat */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan lembut */
+  max-width: 450px; /* Lebar maksimal untuk layar desktop */
+  width: 100%; /* Lebar penuh untuk layar lebih kecil */
+  padding: 25px 20px; /* Menambahkan padding di dalam container */
+}
+
+/* Pengaturan header */
+header h2 {
+  text-align: center; /* Memusatkan teks header */
+  color: #145b7d; /* Warna biru tua */
+  margin-bottom: 20px; /* Jarak di bawah header */
+}
+
+/* Pengaturan form */
+.task-form {
+  display: flex;
+  flex-direction: column; /* Menyusun elemen secara vertikal */
+  gap: 12px; /* Memberi jarak antar elemen */
+  margin-bottom: 20px; /* Memberi jarak di bawah form */
+}
+
+/* Pengaturan container tombol */
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Membagi tombol secara merata */
+  gap: 10px; /* Memberi jarak antar tombol */
+  margin-top: 10px; /* Jarak di atas tombol */
+}
+
+/* Pengaturan tombol submit dan discard */
+#submitButton, #discardButton {
+  flex: 1; /* Membuat lebar tombol sama */
+  padding: 12px; /* Memberi padding di dalam tombol */
+  border-radius: 6px; /* Sudut membulat */
+  font-size: 1em; /* Ukuran font standar */
+  cursor: pointer; /* Kursor pointer untuk tombol */
+  border: none; /* Menghilangkan border default */
+}
+
+#submitButton {
+    background-color: #4a90e2; /* Latar belakang biru untuk tombol submit */
+    color: #ffffff; /* Warna teks putih */
+}
+
+#submitButton:hover {
+    background-color: #3b7bbd; /* Biru lebih gelap saat hover */
+}
+
+#resetButton {
+    background-color: #d32f2f; /* Latar belakang merah */
+    color: #ffffff;
+}
+
+#resetButton:hover {
+    background-color: #b71c1c; /* Merah lebih gelap saat hover */
+}
+
+#discardButton {
+    background-color: #d32f2f; /* Latar belakang merah */
+    color: #ffffff;
+    display: none; /* Tersembunyi secara default, ditampilkan saat mengedit */
+}
+
+#discardButton:hover {
+    background-color: #b71c1c; /* Merah lebih gelap saat hover */
+}
+
+/* Pengaturan field input dan select */
+.task-form input,
+.task-form select {
+  padding: 12px; /* Memberi padding yang nyaman */
+  border: 1px solid #ddd; /* Border tipis */
+  border-radius: 6px; /* Sudut membulat */
+  font-size: 1em; /* Ukuran font standar */
+}
+
+/* Pengaturan bagian filter */
+.filter-section {
+  display: flex;
+  justify-content: space-between; /* Membagi tombol filter secara merata */
+  margin-bottom: 20px; /* Menambah jarak di bawah filter */
+  gap: 10px; /* Menambah jarak antar tombol filter */
+}
+
+/* Pengaturan tombol filter dan dropdown sort */
+.filter-btn,
+#sortTasks {
+  padding: 16px; /* Padding lebih besar untuk tampilan yang konsisten */
+  border: none;
+  background-color: #4a90e2; /* Latar belakang biru */
+  color: #ffffff; /* Teks putih */
+  cursor: pointer; /* Kursor pointer */
+  border-radius: 4px; /* Sudut sedikit membulat */
+}
+
+.filter-btn:hover,
+#sortTasks:hover {
+  background-color: #3b7bbd; /* Biru lebih gelap saat hover */
+}
+
+/* Pengaturan daftar tugas */
+.task-list {
+  list-style-type: none; /* Menghilangkan gaya list default */
+  margin-top: 10px; /* Jarak di atas daftar tugas */
+}
+
+/* Pengaturan item tugas */
+.task-item {
+  display: flex;
+  justify-content: space-between; /* Membagi teks dan aksi secara merata */
+  align-items: center;
+  background: #f9f9f9; /* Latar belakang terang */
+  padding: 12px; /* Padding di dalam setiap tugas */
+  margin-bottom: 8px; /* Jarak antar tugas */
+  border-radius: 6px; /* Sudut membulat */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+}
+
+.task-item.completed {
+  text-decoration: line-through; /* Garis tengah teks saat tugas selesai */
+  color: #aaaaaa; /* Warna abu-abu untuk tugas yang selesai */
+}
+
+/* Pengaturan aksi tugas */
+.task-item .task-actions {
+  display: flex;
+  gap: 8px; /* Jarak antar tombol aksi */
+}
+
+/* Pengaturan tombol aksi */
+.task-actions button {
+  border: none;
+  background: #4a90e2; /* Warna biru default */
+  color: #ffffff; /* Teks putih */
+  padding: 8px; /* Padding di dalam tombol */
+  border-radius: 4px; /* Sudut membulat */
+  cursor: pointer; /* Kursor pointer */
+}
+
+.task-actions button:hover {
+  background-color: #3b7bbd; /* Biru lebih gelap saat hover */
+}
+
+.task-actions .btn-complete {
+  background-color: #4CAF50; /* Warna hijau untuk tombol selesai */
+}
+
+.task-actions .btn-complete:hover {
+  background-color: #45a049; /* Hijau lebih gelap saat hover */
+}
+
+.task-actions .btn-delete {
+  background-color: #d32f2f; /* Warna merah untuk tombol hapus */
+}
+
+.task-actions .btn-delete:hover {
+  background-color: #b71c1c; /* Merah lebih gelap saat hover */
+}
+
+.completed-text {
+  text-decoration: line-through; /* Gaya garis tengah untuk teks tugas selesai */
+}
+
+/* Pengaturan footer */
+footer p {
+  text-align: center; /* Memusatkan teks footer */
+  margin-top: 20px; /* Jarak di atas footer */
+  color: #145b7d; /* Warna biru tua */
+}
+
+/* Responsif untuk layar ukuran menengah */
+@media (max-width: 1024px) {
+  .container {
+    width: 85%; /* Lebar container lebih besar pada layar kecil */
+  }
+
+  .task-form input,
+  .task-form select {
+    font-size: 0.95em; /* Font input sedikit lebih kecil */
+  }
+
+  header h2,
+  footer p {
+    font-size: 1.5em; /* Font header dan footer lebih besar */
+  }
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+  .container {
+    width: 90%; /* Lebar lebih besar untuk layar lebih kecil */
+  }
+
+  .filter-section {
+    flex-direction: row; /* Tombol tetap dalam satu baris */
+    flex-wrap: wrap; /* Membiarkan tombol berpindah ke baris berikutnya jika perlu */
+    justify-content: space-between; /* Membagi tombol secara merata */
+  }
+
+  .filter-btn,
+  #sortTasks {
+    width: auto; /* Lebar otomatis untuk tata letak fleksibel */
+  }
+
+  .task-actions button {
+    padding: 10px; /* Mengatur ulang padding tombol */
+  }
+
+  .task-item {
+    flex-direction: column; /* Menumpuk item secara vertikal */
+    align-items: flex-start; /* Menyusun teks ke kiri */
+  }
+}
+
+/* Responsif untuk layar sangat kecil */
+@media (max-width: 480px) {
+  body {
+    padding: 10px; /* Mengurangi padding untuk perangkat lebih kecil */
+  }
+
+  .container {
+    padding: 20px; /* Padding yang lebih nyaman */
+  }
+
+  .task-form input,
+  .task-form select {
+    font-size: 0.9em; /* Ukuran font lebih kecil */
+  }
+
+  .filter-section {
+    flex-direction: row; /* Filter tetap dalam satu baris */
+    justify-content: space-between; /* Membagi filter secara merata */
+  }
+
+  .filter-btn,
+  #sortTasks {
+    width: 30%; /* Lebar lebih kecil untuk layar mobile */
+    padding: 10px; /* Menyesuaikan padding */
+    font-size: 0.9em; /* Font lebih kecil pada tombol */
+  }
+
+  .task-item {
+    flex-direction: column; /* Menyusun tugas secara vertikal */
+  }
+
+  header h2,
+  footer p {
+    font-size: 1.1em; /* Ukuran font header/footer lebih kecil */
+  }
+}
